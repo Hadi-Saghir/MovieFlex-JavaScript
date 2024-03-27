@@ -105,15 +105,21 @@ const MovieFlex = ({ code }) => {
   //----------------------------------------------------
 
   const quitGame = () => {
+    handleRedirect("/")
     console.log('Quit game function called. Implement navigation or logic here.');
   };
 
+  const handleRedirect = (url) => {
+    window.location.href = url;
+  };
 
   return (
     <Container fluid className="px-0 d-flex flex-column vh-100 vw-100">
-      <Row className="header" style={{ height: '10vh' }}>
+      <Row className="header" style={{ height: '10vh', backgroundColor: '#282828' }}>
         <Col>
-          <h1 className="text-center text-success">MovieFlex✨</h1>
+          <button style={{ margin: '20px'}} className="img-button" onClick={() => handleRedirect("/")}>
+            <h1>MovieFlex✨</h1>
+          </button>
         </Col>
       </Row>
 
@@ -153,7 +159,7 @@ const MovieFlex = ({ code }) => {
         </div>
         <div className="controls" id="round-management">
           <button onClick={fetchNewRound} className="play-pause-button" > New Round </button>
-          <button onClick={quitGame} className="play-pause-button" href={"/"}> Return </button>
+          <button onClick={quitGame} className="play-pause-button"> Return </button>
         </div>
       </div>
 

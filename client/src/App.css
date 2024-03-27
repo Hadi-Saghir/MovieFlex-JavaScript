@@ -12,6 +12,15 @@ h1 {
   padding-bottom: 1rem;
 }
 
+h2 {
+  font-size: 2.5em;
+  color: #1DB954;
+  text-align: left;
+  align-items: left;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 h3 {  
   font-size: 2em;
   color: #1DB954;
@@ -22,6 +31,18 @@ h3 {
   margin: 0;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.img-button {
+  background-color: transparent;
+  margin: "30px";
+  border: none;
+  padding: 0; /* Removes padding around the image */
+  cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
+}
+
+.img-button:hover {
+  transition: background-color 0.3s; /* Smooth transition for the hover effect */
 }
 
 .container, .button-container, .controls, .quit-button {
