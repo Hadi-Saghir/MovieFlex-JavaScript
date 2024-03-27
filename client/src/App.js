@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, redirect } from 'react-router-dom'; // Import Navigate here
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import MovieFlex from './MovieFlex';
@@ -11,6 +11,10 @@ function Login() {
 
   const handleRedirect = (url) => {
     window.location.href = url;
+  };
+
+  const handleRedirectNewTab = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
 
@@ -43,13 +47,13 @@ function Login() {
 
       <Row className="align-items-center" style={{ height: '15vh', backgroundColor: '#282828' }}>
         <Col className="text-center">
-          <div><h1 style={{ color: "white" }}>Powered by</h1></div>
+          <div><h1 style={{ color: "white", textEmphasis: true }}>Powered by</h1></div>
           <div style={{ marginTop: '10px' }}>
-            <button style={{ marginLeft: '20px', marginRight: '20px' }} className="img-button" onClick={() => handleRedirect("https://developer.spotify.com")}>
+            <button style={{ marginLeft: '20px', marginRight: '20px' }} className="img-button" onClick={() => handleRedirectNewTab("https://developer.spotify.com")}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify Logo" style={{ height: '50px' }} />
             </button>
 
-            <button style={{ marginLeft: '20px', marginRight: '20px' }} className="img-button" onClick={() => handleRedirect("https://developer.imdb.com/")}>
+            <button style={{ marginLeft: '20px', marginRight: '20px' }} className="img-button" onClick={() => handleRedirectNewTab("https://developer.imdb.com/")}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="IMDb Logo" style={{ height: '50px' }} />
             </button>
           </div>
