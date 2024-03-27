@@ -11,6 +11,13 @@ const PORT = 3001;
 const app = express();
 app.use(bodyParser.json());
 
+const corsOptions = {
+  origin: 'https://movieflex-react-client.vercel.app/',
+  optionsSuccessStatus: 200, // For legacy browser support
+};
+
+app.use(cors(corsOptions));
+
 
 // ----------------------------------------------------
 //          OMDB API with only IDS
