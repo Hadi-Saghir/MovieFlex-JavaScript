@@ -18,6 +18,8 @@ const MovieFlex = ({ code }) => {
   const [isPlaying, setIsPlaying] = useState(false); // To toggle play/pause visibility for the IFrame player
 
 
+
+  const url= "https://movieflex-react-server.vercel.app"
   //----------------------------------------------------
   //          SPOTIFY WEB PLAYER
   //----------------------------------------------------
@@ -48,7 +50,7 @@ const MovieFlex = ({ code }) => {
   useEffect(() => {
     const fetchNewRound = async () => {
       try {
-        const response = await fetch('/api/movie-data');
+        const response = await fetch( url + '/api/movie-data');
         const movieDetails = await response.json();
         setMovies(movieDetails);
 
@@ -68,7 +70,7 @@ const MovieFlex = ({ code }) => {
 
   const fetchNewRound = async () => {
     try {
-      const response = await fetch('/api/movie-data');
+      const response = await fetch(url + '/api/movie-data');
       const movieDetails = await response.json();
       setMovies(movieDetails);
 

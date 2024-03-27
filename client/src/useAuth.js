@@ -15,7 +15,7 @@ export default function useAuth(code) {
     }
 
 
-    axios.post("/login", { code })
+    axios.post("https://movieflex-react-server.vercel.app/login", { code })
       .then((res) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
@@ -36,7 +36,7 @@ export default function useAuth(code) {
     if (!refreshToken || !expiresIn) return;
 
     const interval = setInterval(() => {
-      axios.post("/refresh", { refreshToken })
+      axios.post("https://movieflex-react-server.vercel.app/refresh", { refreshToken })
         .then((res) => {
           setAccessToken(res.data.accessToken);
           setExpiresIn(res.data.expiresIn);
