@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: 'https://movieflex-react-client.vercel.app/',
+  origin: 'https://movieflex-react-client.vercel.app',
   optionsSuccessStatus: 200, // For legacy browser support
 };
 
