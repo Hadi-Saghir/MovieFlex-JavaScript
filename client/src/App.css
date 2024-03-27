@@ -1,0 +1,71 @@
+body {
+  color: #ffffff;
+  background-color: #121212;
+  font-family: 'Circular Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #1DB954;
+  text-align: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+h3 {  
+  font-size: 2em;
+  color: #1DB954;
+  text-transform: uppercase;
+  font-weight: normal;
+  line-height: 1.2;
+  text-align: center;
+  margin: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.container, .button-container, .controls, .quit-button {
+  text-align: center;
+}
+
+ul.myUL {
+  list-style-type: none;
+  padding: 0;
+}
+
+.button, .link-as-button {
+  background-color: #1DB954;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover, .link-as-button:hover {
+  background-color: #1ed760;
+}
+
+.error-container, #start.has-error {
+  color: #ff1744; /* Spotify doesn't specifically use red for errors, adjust based on preference */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: #1DB954;
+  animation: spin 2s linear infinite;
+}
