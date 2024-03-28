@@ -8,6 +8,12 @@ export default function useAuth(code) {
   const [authError, setAuthError] = useState(false);
   const [loading, setLoading] = useState(true);
 
+
+  // const url= "";
+  const url= "https://movieflex-react-server.vercel.app"
+  
+
+
   useEffect(() => {
     if (!code) {
       setLoading(false);
@@ -15,7 +21,7 @@ export default function useAuth(code) {
     }
 
 
-    axios.post("https://movieflex-react-server.vercel.app/login", { code })
+    axios.post(url + "/login", { code })
       .then((res) => {
         setAccessToken(res.data.accessToken);
         setRefreshToken(res.data.refreshToken);
@@ -36,7 +42,7 @@ export default function useAuth(code) {
     if (!refreshToken || !expiresIn) return;
 
     const interval = setInterval(() => {
-      axios.post("https://movieflex-react-server.vercel.app/refresh", { refreshToken })
+      axios.post(url + "/refresh", { refreshToken })
         .then((res) => {
           setAccessToken(res.data.accessToken);
           setExpiresIn(res.data.expiresIn);

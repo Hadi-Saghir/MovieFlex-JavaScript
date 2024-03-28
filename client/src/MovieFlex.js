@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyPlayer from 'react-spotify-web-playback'; // If using a pre-built component
-import './MovieFlex.css';
 import "bootstrap/dist/css/bootstrap.min.css"
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import useAuth from './useAuth'; // Adjust the path based on your file structure
 
+
+
 const MovieFlex = ({ code }) => {
-  const { accessToken, authError, loading } = useAuth(code);
+  const { accessToken } = useAuth(code);
 
   const [movies, setMovies] = useState([]);
   const [correctMovieID, setCorrectMovieID] = useState('');
@@ -18,8 +19,10 @@ const MovieFlex = ({ code }) => {
   const [isPlaying, setIsPlaying] = useState(false); // To toggle play/pause visibility for the IFrame player
 
 
-
+  // const url = "";
   const url= "https://movieflex-react-server.vercel.app"
+
+
   //----------------------------------------------------
   //          SPOTIFY WEB PLAYER
   //----------------------------------------------------
@@ -50,7 +53,7 @@ const MovieFlex = ({ code }) => {
   useEffect(() => {
     const fetchNewRound = async () => {
       try {
-        const response = await fetch( url + '/api/movie-data');
+        const response = await fetch(url + '/api/movie-data');
         const movieDetails = await response.json();
         setMovies(movieDetails);
 
@@ -59,6 +62,7 @@ const MovieFlex = ({ code }) => {
         setCorrectMovieID(correctMovie.id);
         setCorrectMovieDetails(correctMovie); // Assuming the correct movie details include the Spotify URI
         changeTrack(correctMovie.uri); // Directly use the Spotify URI from the correct movie details
+        console.log(movieDetails)
       } catch (error) {
         console.error('Error fetching game instance:', error);
       }
@@ -79,6 +83,7 @@ const MovieFlex = ({ code }) => {
       setCorrectMovieID(correctMovie.id);
       setCorrectMovieDetails(correctMovie); // Assuming the correct movie details include the Spotify URI
       changeTrack(correctMovie.uri); // Directly use the Spotify URI from the correct movie details
+      console.log(movieDetails)
     } catch (error) {
       console.error('Error fetching game instance:', error);
     }
@@ -87,24 +92,70 @@ const MovieFlex = ({ code }) => {
 
   const checkAnswer = (selectedID) => {
     setSelectedMovieID(selectedID);
-    setShowAnswer(true);
+    setTimeout(setShowAnswer(true), 100); 
 
-    // Visual feedback delay before next actions
+    // Start showing the answer after a short delay to allow for any immediate transitions
     setTimeout(() => {
-      setShowAnswer(false); // Hide answer details if you were showing any
-      // Reset selectedMovieID or any other state needed for the next round
-      setSelectedMovieID(null);
-
-      fetchNewRound(); // Proceed to the next round
-    }, 1000); // Adjust this time as needed
+      setShowAnswer(false);
+        setSelectedMovieID(null); // Reset for the next question
+        fetchNewRound()
+        // Proceed to the next round after a short pause to separate rounds
+        // setTimeout(fetchNewRound, 100); // Adjust as necessary
+    }, 2000); // Short delay to kick off transitions
   };
+
 
 
 
 
   //----------------------------------------------------
   //          HTML RETURN CODE
-  //----------------------------------------------------
+  //---------------------------------------------------- 
+
+  const getTransformationStyle = (movieId, movieIndex, totalMovies) => {
+    // No transformations before an answer is shown
+    if (!showAnswer) return {};
+
+    // Check if this is the correct movie
+    const isCorrect = movieId === correctMovieID;
+
+    // Apply transformations based on the movie's position (index) and correctness
+    let transform = '';
+    if (isCorrect) {
+      // Correct movie, decide on the transform based on its initial position
+      switch (movieIndex) {
+        case 0: // Top left
+          transform = 'translate(125%, 50%)';
+          break;
+        case 1: // Bottom left
+          transform = 'translate(125%, -50%)';
+          break;
+        case 2: // Top right
+          transform = 'translate(-125%, 50%)';
+          break;
+        case 3: // Bottom right
+          transform = 'translate(-125%, -50%)';
+          break;
+        default:
+          // Fallback for any other position, though unlikely given a 2x2 grid
+          transform = 'translate(0%, 0%)';
+      }
+      return {
+        transform: transform,
+        opacity: 1,
+        transition: 'transform 0.5s ease, opacity 0.5s ease',
+      };
+    } else {
+      // Incorrect movie, just scale down
+      return {
+        transform: 'scale(0.8)',
+        opacity: 0, // Make incorrect cards semi-transparent
+        transition: 'transform 0.2s ease, opacity 0.5s ease',
+      };
+    }
+  };
+
+
 
   const quitGame = () => {
     handleRedirect("/")
@@ -115,62 +166,68 @@ const MovieFlex = ({ code }) => {
     window.location.href = url;
   };
 
+
   return (
-    <Container fluid className="px-0 d-flex flex-column vh-100 vw-100">
-      <Row className="header" style={{ height: '10vh', backgroundColor: '#282828' }}>
-        <Col>
-          <button style={{ margin: '20px'}} className="img-button" onClick={() => handleRedirect("/")}>
-            <h1>MovieFlex✨</h1>
-          </button>
-        </Col>
-      </Row>
-
-      <Row className="cards-container" style={{ height: '30vh', overflowY: 'auto' }}>
-        <Col>
-          <Row>
-            {movies.map((movie) => (
-              <Col xs={6} md={4} lg={3} className="mb-4" key={movie.id}>
-                <div className={`card flip-card ${selectedMovieID === movie.id ? (movie.id === correctMovieID ? 'correct' : 'incorrect') : ''}`} onClick={() => !showAnswer && checkAnswer(movie.id)}>
-                  <div className="flip-card-inner">
-                    <div className="flip-card-front" style={{ backgroundImage: `url(${movie.poster})` }}></div>
-                    <div className="flip-card-back d-flex align-items-center justify-content-center">
-                      <button className="card-button">Choose!</button>
+    <div>
+      <Container className="d-flex flex-column py-2" style={{ height: "100vh", width: "100vh", overflow: 'auto' }}>
+        <Row className="w-full md:h-screen flex items-center" style={{ height: '15vh', zIndex: '102' }}>
+          <Col xs={4} className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
+            <button className="img-button button-margin" onClick={() => handleRedirect("/")}>
+              <img src="https://elasticbeanstalk-eu-north-1-102471047009.s3.eu-north-1.amazonaws.com/movieflex/MovieFlex.png" alt="IMDb Logo" className="mf-logo" style={{ maxWidth: '150px', height: 'auto' }} />
+            </button>
+          </Col>
+        </Row>
+  
+        <Row className="flex-grow-1 my-2" style={{ height: '60vh', overflow: 'hidden', zIndex: '101' }}>
+          <div className={`selected-answer-container ${!showAnswer ? 'show' : ''}`}>
+            <Col>
+              <div className="card-holder" style={{ overflow: 'hidden' }}>
+                {movies.map((movie, index) => (
+                  <Col xs={6} md={4} lg={3} className="mb-4" key={movie.id}>
+                    <div
+                      key={movie.id}
+                      className={`card flip-card ${selectedMovieID === movie.id ? (movie.id === correctMovieID ? 'correct' : 'incorrect') : ''} ${showAnswer ? 'no-hover-effect' : ''}`}
+                      onClick={() => !showAnswer && checkAnswer(movie.id)}
+                      style={getTransformationStyle(movie.id, index, movies.length)}
+                    >
+                      <div className="flip-card-inner">
+                        <div className="flip-card-front" style={{ backgroundImage: `url(${movie.poster})`, backgroundSize: 'cover', backgroundPosition: 'center' }}></div>
+                        <div className="flip-card-back d-flex align-items-center justify-content-center">
+                          <button className="card-button">Choose!</button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </Col>
-      </Row>
-
-      <div className="bottom-section" style={{ height: '45vh' }}>
-        <div className="answer-and-controls-section">
-          {showAnswer && correctMovieDetails ? (
-            <div className="correct-answer">
-              <p>Correct Movie: {correctMovieDetails.title}</p>
-              <div className="correct-answer-image" style={{ backgroundImage: `url(${correctMovieDetails.poster})` }}></div>
-            </div>
-          ) : (
-            <div className="correct-answer">
-              <p>Correct Movie: Awaiting choice...</p>
-              <div className="correct-answer-placeholder">
+                  </Col>
+                ))}
               </div>
+            </Col>
+          </div>
+        </Row>
+  
+        <Col className="d-flex flex-column py-2" style={{ overflow: 'hidden' }}>
+          <div className="answer-and-controls-section">
+            <div className="correct-answer-text">
+              {showAnswer && correctMovieDetails ? (
+                <p>Correct Movie: {correctMovieDetails.title}</p>
+              ) : (
+                <p>Correct Movie: Awaiting choice...</p>
+              )}
             </div>
-          )}
-        </div>
-        <div className="controls" id="round-management">
-          <button onClick={fetchNewRound} className="play-pause-button" > New Round </button>
-          <button onClick={quitGame} className="play-pause-button"> Return </button>
-        </div>
-      </div>
-
-      <Row className="fixed-bottom" id="footer">
-        <Container className="spotify-player-container">
+            <div className="controls">
+              <button onClick={fetchNewRound} className="play-pause-button" > New Round </button>
+              <button onClick={quitGame} className="play-pause-button"> Return </button>
+            </div>
+          </div>
+        </Col>
+  
+        <div className="spotify-player-container">
           <SpotifyPlayer
             token={accessToken}
             uris={trackUri ? [trackUri] : []}
             play={isPlaying}
+            callback={state => {
+              if (!state.isPlaying) setIsPlaying(false)
+            }}
             styles={{
               bgColor: '#333',
               color: '#fff',
@@ -179,65 +236,16 @@ const MovieFlex = ({ code }) => {
               savedColor: '#fff',
               trackArtistColor: '#333',
               trackNameColor: '#333',
-              height: '20vh'
             }}
           />
-
           <div className="cover-overlay" />
-        </Container>
-      </Row>
-    </Container>
+        </div>
+  
+      </Container>
+  
+    </div>
   );
+  
 }
 
 export default MovieFlex;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//this method is no longer used  as too many paradies gave inaccurate search results
-//todo: create a better filtration method
-//----------------------------------------------------
-//          Previous way with client-server
-//----------------------------------------------------
-
-
-//change track with from server, old way
-// const changeTrack = async (title) => {
-//   try {
-//     const response = await fetch(`/audio/search/${title} + main movie soundtrack`);
-//     const uri = await response.text();
-//     setTrackUri(uri);
-//     setIsPlaying(true);
-//   } catch (error) {
-//     console.error('Error fetching Spotify track URI:', error);
-//   }
-// };
-
-// const fetchNewRound = async () => {
-
-//   try {
-//     const response = await fetch('/api/movie-id');
-//     const movieDetails = await response.json();
-//     setMovies(movieDetails);
-
-//     // Pick a correct movie
-//     const correctMovie = movieDetails[Math.floor(Math.random() * movieDetails.length)];
-//     setCorrectMovieID(correctMovie.id);
-//     setCorrectMovieDetails(correctMovie); // Store the correct movie details for display
-//     changeTrack(correctMovie.title); // Assume this function sets the track URI based on movie title
-//   } catch (error) {
-//     console.error('Error fetching game instance:', error);
-//   }
-// };

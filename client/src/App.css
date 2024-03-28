@@ -1,29 +1,29 @@
 body {
   color: #ffffff;
   background-color: #121212;
-  font-family: 'Circular Std', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Circular Std", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1,
+h2 {
+  font-size: 2.5em;
+  color: #1db954;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 h1 {
-  font-size: 2.5em;
-  color: #1DB954;
   text-align: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 h2 {
-  font-size: 2.5em;
-  color: #1DB954;
   text-align: left;
   align-items: left;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
-h3 {  
+h3 {
   font-size: 2em;
-  color: #1DB954;
+  color: #ffffff;
   text-transform: uppercase;
   font-weight: normal;
   line-height: 1.2;
@@ -33,60 +33,333 @@ h3 {
   padding-bottom: 0.5rem;
 }
 
+.img-button,
+.button,
+.link-as-button,
+.play-pause-button,
+.login-button {
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+  border: none;
+  background-color: #1db954;
+  color: #ffffff;
+  font-size: large;
+}
+
+.button,
+.link-as-button,
+.play-pause-button,
+.login-button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
 .img-button {
   background-color: transparent;
-  margin: "30px";
-  border: none;
-  padding: 0; /* Removes padding around the image */
-  cursor: pointer; /* Changes the cursor to a pointer to indicate it's clickable */
-}
-
-.img-button:hover {
-  transition: background-color 0.3s; /* Smooth transition for the hover effect */
-}
-
-.container, .button-container, .controls, .quit-button {
-  text-align: center;
-}
-
-ul.myUL {
-  list-style-type: none;
   padding: 0;
 }
 
-.button, .link-as-button {
-  background-color: #1DB954;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 50px;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.button:hover, .link-as-button:hover {
+.button:hover,
+.play-pause-button:hover,
+.login-button:hover,
+.quit-button:hover {
   background-color: #1ed760;
 }
 
-.error-container, #start.has-error {
-  color: #ff1744; /* Spotify doesn't specifically use red for errors, adjust based on preference */
+.container,
+.button-container,
+.controls,
+.quit-button,
+.spotify-player-container,
+.flip-card-wrapper {
+  text-align: center;
+}
+.row-background-dark,
+.how-to-play,
+.card-holder,
+.flip-card-front,
+.flip-card-wrapper {
+  background-color: #282828;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.how-to-play {
+  border-radius: 2%;
+  gap: 30px;
+  padding: 2rem; /* Consolidated padding */
+  align-items: center;
+  justify-content: center;
+  background-color: #121212;
+  width: 100%; /* Full width */
+  margin: 0; /* Remove default margins if necessary */
+  box-sizing: border-box; /* Include padding and border in the element's width */
+  z-index: 101; /* Ensure it's above other elements if necessary */
 }
 
-.loading-spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border-left-color: #1DB954;
-  animation: spin 2s linear infinite;
+
+.how-to-play h2 {
+  margin-bottom: 1rem; /* Adds some space below the heading */
+  text-align: left; 
+  padding-left: 2rem; /* Space for the bullet image */
+  font-size: 2.5rem; /* Adjusts the font size */
+  color: #1db954; /* Optional: Gives the heading a distinct color */
+}
+
+.myUL {
+  list-style-type: none; 
+  padding: 0; 
+  margin: 0;
+}
+
+.myUL li {
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Key-Signatures-flats.svg/1280px-Key-Signatures-flats.svg.png') no-repeat left center; /* Optional: Custom bullet image */
+  background-blend-mode: color;
+  padding-left: 2rem; /* Space for the bullet image */
+  margin-bottom: 1rem; /* Space between list items */
+  text-align: left; /* Aligns the text to the left */
+  line-height: 1.6; /* Adjusts the spacing between lines */
+  font-size: 2rem; /* Adjusts the font size */
+}
+
+/* If you want a custom bullet point */
+.myUL li::before {
+  content: '•'; /* Custom bullet */
+  color: #1db954; /* Bullet color */
+  display: inline-block; /* Allows it to sit next to the text */
+  width: 1rem; /* Width of the bullet area */
+  margin-left: -1rem; /* Positions the bullet correctly */
+}
+
+
+.login-container {
+  display: flex;
+  justify-content: space-between; /* Aligns items to the edges of the container */
+  align-items: center; /* Centers items vertically */
+  position: fixed;
+  left: 0;
+  right: 0; /* Stretches across the full width */
+  bottom: 170px; /* Adjust this value so it sits above the Spotify player */
+  padding: 0 20px; /* Horizontal padding */
+  z-index: 103; /* Above the Spotify player */
+}
+
+
+
+.powered-by-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 150px;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 110%;
+  background-color: #333;
+  z-index: 102;
+}
+
+.img-logo,
+.flip-card-front,
+.flip-card-back {
+  background-size: cover;
+  background-position: center;
+}
+
+.img-logo {
+  height: 50px;
+}
+
+.card-holder {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* Adjust minmax values for card width */
+  grid-template-rows: repeat(2, minmax(200px, 1fr)); /* Two rows */
+  gap: 30px;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  background-color: #121212;
+}
+
+.flip-card,
+.correct-answer {
+  background-color: transparent;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10vh;
+  width: 15vh; /* Make flip cards adaptive */
+  height: 25vh; /* Make flip cards adaptive */
+  perspective: 1000px; /* Gives a depth effect on the flip */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.no-hover-effect .flip-card-inner {
+  transform: rotateY(0deg) !important;
+}
+
+.flip-card:hover .flip-card-inner {
+  /* transform: rotateY(180deg); */
+  transform: scale(1.1);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  border-radius: 3%;
+  border-color: white;
+  width: 100%;
+  backface-visibility: hidden; /* Hides the back when flipping */
+}
+
+.flip-card-front {
+  background-color: #282828;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.flip-card-back {
+  background-color: #282828;
+  color: white;
+  /* transform: rotateY(180deg); */
+}
+
+.answer-and-controls-section {
+  display: flex;
+  justify-content: space-between; /* Aligns items to the edges of the container */
+  align-items: center; /* Centers items vertically */
+  position: fixed;
+  left: 0;
+  right: 0; /* Stretches across the full width */
+  bottom: 90px; /* Adjust this value so it sits above the Spotify player */
+  padding: 0 20px; /* Horizontal padding */
+  z-index: 103; /* Above the Spotify player */
+}
+
+.correct-answer-text {
+  display: flex;
+  align-items: center;
+  /* No need for flex-grow; let it take its natural size */
+}
+
+.correct-answer-text p {
+  color: white;
+  margin: 0; /* No margin */
+  padding: 10px 0; /* Vertical padding if needed */
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-right: -20px; /* Negative margin to counteract the container's padding */
+}
+
+.controls button {
+  margin-left: 10px; /* Space between buttons */
+  padding: 10px 20px; /* Consistent padding for buttons */
+  font-size: 16px; /* Font size for buttons */
+}
+
+/* Spotify player and other components fixed positioning */
+.spotify-player-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 80px;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  z-index: 102;
+}
+
+.cover-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 30%; /* Adjust based on how much you want to cover */
+  background-color: #333; /* Same as the player's background for consistency */
+  z-index: 101; /* Ensure it's above the Spotify player but under the content */
+}
+
+
+@media only screen and (max-width: 768px) {
+  /* Styles for screens smaller than 768px */
+  h1,
+  h2 {
+    font-size: 2em; /* Decrease font size for headings */
+    padding-top: 0.5rem; /* Reduce padding */
+    padding-bottom: 0.5rem; /* Reduce padding */
+  }
+
+  .button,
+  .link-as-button,
+  .play-pause-button,
+  .correct-answer-text,
+  .login-button {
+    padding: 8px 16px; /* Reduce padding for buttons */
+    font-size: 14px; /* Decrease font size for buttons */
+  }
+
+  .how-to-play {
+    padding: 1rem; /* Reduce padding */
+  }
+
+  .how-to-play h2 {
+    font-size: 2rem; /* Decrease font size */
+    padding-left: 1rem; /* Reduce padding */
+  }
+
+  .myUL li {
+    padding-left: 1rem; /* Reduce padding */
+    font-size: 1.6rem; /* Decrease font size */
+  }
+
+}
+
+@media only screen and (max-height: 10000px) {
+  /* Styles for screens smaller than 600px in height */
+  .button,
+  .link-as-button,
+  .play-pause-button,
+  .login-button {
+    padding: 6px 12px; /* Reduce padding for buttons */
+    font-size: 14px; /* Decrease font size for buttons */
+  }
+
+  .correct-answer-text p{
+    font-size: 24px;
+  }
+
+  .how-to-play {
+    padding: 0.5rem; /* Reduce padding */
+  }
+
+  .how-to-play h2 {
+    font-size: 1.5rem; /* Decrease font size */
+    padding-left: 0.5rem; /* Reduce padding */
+  }
+
+  .myUL li {
+    padding-left: 0.5rem; /* Reduce padding */
+    font-size: 1.4rem; /* Decrease font size */
+  }
+
 }

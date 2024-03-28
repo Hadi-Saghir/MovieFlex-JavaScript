@@ -1,5 +1,5 @@
 {
-  "proxy": "https://movieflex-react-server.vercel.app",
+  "proxy": "http://localhost:3001/",
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
