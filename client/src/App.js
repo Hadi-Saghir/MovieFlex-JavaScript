@@ -46,7 +46,7 @@ function Login() {
       <Row className="login-container">
         <Col className="controls">
           <div style={{width: "60%"}}></div>
-          <img src="https://elasticbeanstalk-eu-north-1-102471047009.s3.eu-north-1.amazonaws.com/movieflex/Premium-Webplayer-Arrow.png" alt="IMDb Logo" className="mf-logo" style={{ width: '200px', height: 'auto' }} />
+          <img src="https://elasticbeanstalk-eu-north-1-102471047009.s3.eu-north-1.amazonaws.com/movieflex/Premium-Webplayer-Arrow.png" alt="Premium Webplayer" className="prem-logo" />
         </Col>
         <Col className="controls">
           <button onClick={() => navigation("/movieflex-free")} className="login-button">No Login</button>

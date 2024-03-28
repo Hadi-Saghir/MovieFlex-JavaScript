@@ -230,6 +230,7 @@ const MovieFlex = ({ code }) => {
             }}
             styles={{
               bgColor: '#333',
+              
               color: '#fff',
               loaderColor: '#fff',
               sliderColor: '#1cb954',

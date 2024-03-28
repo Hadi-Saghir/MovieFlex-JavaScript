@@ -172,7 +172,7 @@ const MovieFlexFree = () => {
 
     return (
         <div>
-            <Container className="d-flex flex-column py-2" style={{ height: "100vh", width: "100vh", overflow: 'auto' }}>
+            <Container className="d-flex flex-column py-2" style={{ height: "100%", width: "100%", overflow: 'auto' }}>
                 <Row className="w-full md:h-screen flex items-center" style={{ height: '15vh', zIndex: '102' }}>
                     <Col xs={4} className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
                         <button className="img-button button-margin" onClick={() => handleRedirect("/")}>

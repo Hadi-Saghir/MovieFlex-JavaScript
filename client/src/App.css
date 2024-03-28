@@ -98,23 +98,23 @@ h3 {
   z-index: 101; /* Ensure it's above other elements if necessary */
 }
 
-
 .how-to-play h2 {
   margin-bottom: 1rem; /* Adds some space below the heading */
-  text-align: left; 
+  text-align: left;
   padding-left: 2rem; /* Space for the bullet image */
   font-size: 2.5rem; /* Adjusts the font size */
   color: #1db954; /* Optional: Gives the heading a distinct color */
 }
 
 .myUL {
-  list-style-type: none; 
-  padding: 0; 
+  list-style-type: none;
+  padding: 0;
   margin: 0;
 }
 
 .myUL li {
-  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Key-Signatures-flats.svg/1280px-Key-Signatures-flats.svg.png') no-repeat left center; /* Optional: Custom bullet image */
+  background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Key-Signatures-flats.svg/1280px-Key-Signatures-flats.svg.png")
+    no-repeat left center; /* Optional: Custom bullet image */
   background-blend-mode: color;
   padding-left: 2rem; /* Space for the bullet image */
   margin-bottom: 1rem; /* Space between list items */
@@ -125,13 +125,12 @@ h3 {
 
 /* If you want a custom bullet point */
 .myUL li::before {
-  content: '•'; /* Custom bullet */
+  content: "•"; /* Custom bullet */
   color: #1db954; /* Bullet color */
   display: inline-block; /* Allows it to sit next to the text */
   width: 1rem; /* Width of the bullet area */
   margin-left: -1rem; /* Positions the bullet correctly */
 }
-
 
 .login-container {
   display: flex;
@@ -147,14 +146,16 @@ h3 {
   z-index: 103; /* Above the Spotify player */
 }
 
+.login-container img {
+  width: 200px;
+  height: auto;
+}
+
 .login-button {
   width: 20%; /* Stretch to fill container width */
   margin-bottom: 10px; /* Adjust as needed for spacing */
   text-align: center; /* Center the text inside buttons */
 }
-
-
-
 
 .powered-by-container {
   display: flex;
@@ -165,7 +166,7 @@ h3 {
   position: fixed;
   left: 0;
   bottom: 0;
-  width: 110%;
+  width: 103%;
   background-color: #333;
   z-index: 102;
 }
@@ -318,7 +319,6 @@ h3 {
   z-index: 101; /* Ensure it's above the Spotify player but under the content */
 }
 
-
 @media only screen and (max-width: 768px) {
   /* Styles for screens smaller than 768px */
   h1,
@@ -334,7 +334,24 @@ h3 {
   .correct-answer-text,
   .login-button {
     padding: 8px 16px; /* Reduce padding for buttons */
-    font-size: 14px; /* Decrease font size for buttons */
+    font-size: 10px; /* Decrease font size for buttons */
+  }
+
+  .login-container button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-wrap: false;
+    font-size: 12px;
+    width: 90%;
+  }
+
+  .login-container img {
+    width: 20px;
+  }
+
+  .correct-answer-text p {
+    font-size: 1px;
   }
 
   .how-to-play {
@@ -350,35 +367,60 @@ h3 {
     padding-left: 1rem; /* Reduce padding */
     font-size: 1.6rem; /* Decrease font size */
   }
-
 }
 
-@media only screen and (max-height: 10000px) {
+@media only screen and (max-height: 1000px) {
   /* Styles for screens smaller than 600px in height */
+  h1,
+  h2 {
+    font-size: 2em; /* Decrease font size for headings */
+    padding-top: 0.5rem; /* Reduce padding */
+    padding-bottom: 0.5rem; /* Reduce padding */
+  }
+
   .button,
   .link-as-button,
   .play-pause-button,
+  .correct-answer-text,
   .login-button {
-    padding: 6px 12px; /* Reduce padding for buttons */
-    font-size: 14px; /* Decrease font size for buttons */
+    padding: 8px 16px; /* Reduce padding for buttons */
+    font-size: 10px; /* Decrease font size for buttons */
   }
 
-  .correct-answer-text p{
-    font-size: 24px;
+  .login-container button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-wrap: false;
+    font-size: 12px;
+    width: 90%;
+  }
+
+  .login-container img {
+    width: 100px;
+    margin-left: 20px;
+  }
+
+  .card-holder {
+    width: 100%;
+  }
+  
+
+  .correct-answer-text p {
+    font-size: 1px;
   }
 
   .how-to-play {
-    padding: 0.5rem; /* Reduce padding */
+    padding: 1rem; /* Reduce padding */
   }
 
   .how-to-play h2 {
-    font-size: 1.5rem; /* Decrease font size */
-    padding-left: 0.5rem; /* Reduce padding */
+    font-size: 2rem; /* Decrease font size */
+    padding-left: 1rem; /* Reduce padding */
   }
 
   .myUL li {
-    padding-left: 0.5rem; /* Reduce padding */
-    font-size: 1.4rem; /* Decrease font size */
+    padding-left: 1rem; /* Reduce padding */
+    font-size: 1.6rem; /* Decrease font size */
   }
-
 }
