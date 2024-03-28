@@ -1,13 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, redirect } from 'react-router-dom'; // Import Navigate here
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom'; // Import Navigate here
+import { Container, Row, Col } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import MovieFlex from './MovieFlex';
+import MovieFlexFree from './MovieFlexFree';
 import './App.css';
 
 // const AUTH_URL = "https://accounts.spotify.com/authorize?client_id=a6efc533d8444fa49fbaf5e02f0541f2&response_type=code&redirect_uri=http://localhost:3000/&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state";
 
-const AUTH_URL = "https://accounts.spotify.com/authorize?client_id=a6efc533d8444fa49fbaf5e02f0541f2&response_type=code&redirect_uri=https://movieflex-react-client.vercel.app/&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state";
+const AUTH_URL = "https://accounts.spotify.com/authorize?client_id=a6efc533d8444fa49fbaf5e02f0541f2&response_type=code&redirect_uri=https://movieflex.hadisaghir.com/&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state";
 
 function Login() {
 
@@ -19,6 +20,7 @@ function Login() {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
+  const navigation = useNavigate();
 
   return (
     <Container className="d-flex flex-column py-2" style={{ height: "100%", width: "100%", overflow: 'auto' }}>
@@ -29,7 +31,7 @@ function Login() {
           </button>
         </Col>
       </Row>
-  
+
       <Row className="d-flex flex-column py-2">
         <div className="how-to-play">
           <h2 className="h2">How to play:</h2>
@@ -40,13 +42,20 @@ function Login() {
           </ul>
         </div>
       </Row>
-  
+
       <Row className="login-container">
         <Col className="controls">
-          <button onClick={() => handleRedirect(AUTH_URL)} className="login-button" > Login With Spotify </button>
+          <div style={{width: "60%"}}></div>
+          <img src="https://elasticbeanstalk-eu-north-1-102471047009.s3.eu-north-1.amazonaws.com/movieflex/Premium-Webplayer-Arrow.png" alt="IMDb Logo" className="mf-logo" style={{ width: '200px', height: 'auto' }} />
+        </Col>
+        <Col className="controls">
+          <button onClick={() => navigation("/movieflex-free")} className="login-button">No Login</button>
+          <button onClick={() => handleRedirect(AUTH_URL)} className="login-button">Login With Spotify</button>
         </Col>
       </Row>
-  
+
+
+
       <Row className="powered-by-container" style={{ backgroundColor: '#282828' }}>
         <Col className="text-center">
           <div><h3 style={{ color: 'white' }}>Powered by</h3></div>
@@ -54,7 +63,7 @@ function Login() {
             <button className="img-button button-margin" onClick={() => handleRedirectNewTab("https://developer.spotify.com")}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify Logo" className="img-logo" />
             </button>
-  
+
             <button className="img-button button-margin" onClick={() => handleRedirectNewTab("https://developer.imdb.com/")}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="IMDb Logo" className="img-logo" />
             </button>
@@ -76,6 +85,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={!code ? <Login /> : <Navigate to="/movieflex" />} />
+        <Route path="/movieflex-free" element={<MovieFlexFree />} />
         <Route path="/movieflex" element={<MovieFlex code={code} />} />
       </Routes>
     </Router>

@@ -135,8 +135,10 @@ h3 {
 
 .login-container {
   display: flex;
-  justify-content: space-between; /* Aligns items to the edges of the container */
-  align-items: center; /* Centers items vertically */
+  display: flex;
+  flex-direction: column; /* Stacks children vertically */
+  justify-content: center; /* Aligns items centrally in the container, change as needed */
+  align-items: center; /* Centers items horizontally */
   position: fixed;
   left: 0;
   right: 0; /* Stretches across the full width */
@@ -144,6 +146,13 @@ h3 {
   padding: 0 20px; /* Horizontal padding */
   z-index: 103; /* Above the Spotify player */
 }
+
+.login-button {
+  width: 20%; /* Stretch to fill container width */
+  margin-bottom: 10px; /* Adjust as needed for spacing */
+  text-align: center; /* Center the text inside buttons */
+}
+
 
 
 
@@ -295,6 +304,16 @@ h3 {
   bottom: 0;
   left: 0;
   width: 30%; /* Adjust based on how much you want to cover */
+  background-color: #333; /* Same as the player's background for consistency */
+  z-index: 101; /* Ensure it's above the Spotify player but under the content */
+}
+
+.cover-overlay-embedd {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 90%; /* Adjust based on how much you want to cover */
   background-color: #333; /* Same as the player's background for consistency */
   z-index: 101; /* Ensure it's above the Spotify player but under the content */
 }
