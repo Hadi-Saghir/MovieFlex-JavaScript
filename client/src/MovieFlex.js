@@ -45,6 +45,10 @@ const MovieFlex = ({ code }) => {
   };
 
 
+  const togglePlay = () => {
+    setIsPlaying(prevIsPlaying => !prevIsPlaying);
+  };
+
 
   //----------------------------------------------------
   //          MOVIE IDS && NEW ROUND
@@ -244,7 +248,7 @@ const MovieFlex = ({ code }) => {
               )}
             </div>
             <div className="controls">
-              {/* <button onClick={togglePlay} className="play-pause-button" id="toggle-play"> Toggle Play</button> */}
+              <button onClick={togglePlay} className="play-pause-button" id="toggle-play"> Toggle Play</button>
               <button onClick={fetchNewRound} className="play-pause-button" > New Round </button>
               <button onClick={quitGame} className="play-pause-button"> Return </button>
             </div>
