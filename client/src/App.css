@@ -425,7 +425,7 @@ h3 {
   }
 }
 
-@media only screen and (max-height: 900px) and (max-width: 768px ) {
+@media only screen and (max-height: 900px) and (min-width: 768px ) {
   /* Styles for screens smaller than 800px in height */
   h1,
   h2 {
