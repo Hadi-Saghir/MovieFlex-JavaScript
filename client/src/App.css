@@ -425,6 +425,85 @@ h3 {
   }
 }
 
+@media only screen and (max-height: 900px) {
+  /* Styles for screens smaller than 800px in height */
+  h1,
+  h2 {
+    font-size: 2.67em; /* Increase font size for headings */
+    padding-top: 0.67rem; /* Adjust padding */
+    padding-bottom: 0.67rem; /* Adjust padding */
+  }
+
+  .link-as-button,
+  .play-pause-button,
+  .correct-answer-text,
+  .login-button {
+    padding: 12px 20px; /* Adjust padding for buttons */
+    font-size: 14px; /* Adjust font size for buttons */
+  }
+
+  .login-container button {
+    font-size: 16px; /* Adjust font size */
+    width: 80%; /* Adjust button width */
+  }
+
+  .login-container img {
+    width: 120px; /* Adjust image width */
+    margin-left: 30px; /* Adjust margin */
+  }
+
+  .head-banner {
+    height: 90px; /* Adjust banner height */
+  }
+
+  .selected-answer-container-row {
+    top: 160px; /* Adjust position */
+    height: 50%; /* Adjust height */
+    width: 100%;
+  }
+
+  /* Adjust card sizes and layout */
+  .flip-card,
+  .flip-card-front,
+  .flip-card-back,
+  .card-button {
+    max-width: 150px; /* Adjust maximum width */
+    max-height: 240px; /* Adjust maximum height */
+    margin-left: 50px; /* Adjust margin */
+  }
+
+  /* Adjust the card holder */
+  .card-holder {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 2fr)); /* Adjust column size */
+    gap: 15px; /* Adjust gap */
+    padding: 15px; /* Adjust padding */
+    justify-content: center; /* Adjust alignment */
+  }
+
+  .answer-and-controls-section {
+    height: 30px; /* Adjust height */
+  }
+
+  .correct-answer-text {
+    z-index: 103;
+  }
+
+  .how-to-play {
+    padding: 1.5rem; /* Adjust padding */
+  }
+
+  .how-to-play h2 {
+    font-size: 2.5rem; /* Adjust font size */
+    padding-left: 1.5rem; /* Adjust padding */
+  }
+
+  .myUL li {
+    padding-left: 1.5rem; /* Adjust padding */
+    font-size: 1.8rem; /* Adjust font size */
+  }
+}
+
+
 @media only screen and (max-height: 700px) {
   /* Styles for screens smaller than 600px in height */
   h1,
