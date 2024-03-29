@@ -124,7 +124,7 @@ const MovieFlexFree = () => {
     
         // Determine if we're on a smaller screen
         // This checks if the screen width is less than or equal to 768 pixels
-        const isSmallScreen = window.innerWidth <= 768 || window.innerHeight <= 1000;
+        const isSmallScreen = window.innerWidth <= 768 || window.innerHeight <= 800;
     
         // Apply transformations based on the movie's position (index) and correctness
         let transform = '';
