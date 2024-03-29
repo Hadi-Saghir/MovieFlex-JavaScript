@@ -24,7 +24,7 @@ function Login() {
 
   return (
     <Container className="d-flex flex-column py-2" style={{ height: "100%", width: "100%", overflow: 'auto' }}>
-      <Row className="w-full md:h-screen flex items-center" style={{ zIndex: '102' }}>
+      <Row className="w-full md:h-screen flex items-center head-banner" style={{ zIndex: '101' }}>
         <Col xs={4} className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
           <button className="img-button button-margin" onClick={() => handleRedirect("/")}>
             <img src="https://elasticbeanstalk-eu-north-1-102471047009.s3.eu-north-1.amazonaws.com/movieflex/MovieFlex.png" alt="IMDb Logo" className="mf-logo" style={{ width: '200px', height: 'auto' }} />

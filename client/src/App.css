@@ -33,6 +33,10 @@ h3 {
   padding-bottom: 0.5rem;
 }
 
+.head-banner {
+  height: 10%;
+}
+
 .img-button,
 .button,
 .link-as-button,
@@ -182,6 +186,10 @@ h3 {
   height: 50px;
 }
 
+.selected-answer-container-row{
+  height: 60%;
+}
+
 .card-holder {
   display: grid;
   grid-template-columns: repeat(
@@ -320,7 +328,7 @@ h3 {
 }
 
 @media only screen and (max-width: 768px) {
-  /* Styles for screens smaller than 768px */
+  /* Styles for screens smaller than 600px in height */
   h1,
   h2 {
     font-size: 2em; /* Decrease font size for headings */
@@ -328,13 +336,14 @@ h3 {
     padding-bottom: 0.5rem; /* Reduce padding */
   }
 
-  .button,
   .link-as-button,
   .play-pause-button,
   .correct-answer-text,
   .login-button {
     padding: 8px 16px; /* Reduce padding for buttons */
     font-size: 10px; /* Decrease font size for buttons */
+    height: 40px;
+
   }
 
   .login-container button {
@@ -347,11 +356,58 @@ h3 {
   }
 
   .login-container img {
-    width: 20px;
+    width: 100px;
+    margin-left: 20px;
   }
+
+  .head-banner {
+    height: 70px;
+  }
+
+  .selected-answer-container-row{
+    top: 120px;
+    left: 0;
+    height: 60%;
+    width: 100%;
+    z-index: 105;
+  }
+
+  /* Adjust card sizes and layout */
+  .flip-card,
+  .flip-card-front,
+  .flip-card-back,
+  .card-button {
+    max-width: 125px; /* Maximum width to prevent too large cards on slightly bigger screens */
+    max-height: 200px; /* Maximum height, keeping a 3:2 aspect ratio as an example */
+    margin-left: 20px;
+
+  }
+
+  /* Adjust the card holder to better fit the adjusted card sizes */
+  .card-holder {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(150px, 2fr)
+    ); 
+    gap: 10px; 
+    padding: 40px; 
+    align-items: center;
+    justify-content: center;
+  }
+
+  .answer-and-controls-section{
+    height: 20px;
+    z-index: 106;
+  }
+
+  .correct-answer-text{
+    z-index: 103;
+  }
+
 
   .correct-answer-text p {
     font-size: 1px;
+    visibility: hidden;
   }
 
   .how-to-play {
@@ -378,13 +434,14 @@ h3 {
     padding-bottom: 0.5rem; /* Reduce padding */
   }
 
-  .button,
+
   .link-as-button,
   .play-pause-button,
   .correct-answer-text,
   .login-button {
     padding: 8px 16px; /* Reduce padding for buttons */
     font-size: 10px; /* Decrease font size for buttons */
+
   }
 
   .login-container button {
@@ -401,13 +458,52 @@ h3 {
     margin-left: 20px;
   }
 
-  .card-holder {
-    width: 100%;
+  .head-banner {
+    height: 70px;
   }
-  
+
+  .selected-answer-container-row{
+    top: 120px;
+    left: 0;
+    height: 60%;
+    width: 100%;
+    z-index: 105;
+  }
+
+  /* Adjust card sizes and layout */
+  .flip-card,
+  .flip-card-front,
+  .flip-card-back,
+  .card-button {
+    max-width: 125px; /* Maximum width to prevent too large cards on slightly bigger screens */
+    max-height: 200px; /* Maximum height, keeping a 3:2 aspect ratio as an example */
+    margin-left: 20px;
+  }
+
+  /* Adjust the card holder to better fit the adjusted card sizes */
+  .card-holder {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(150px, 2fr)
+    ); 
+    gap: 10px; 
+    padding: 10px; 
+    justify-content: right;
+  }
+
+  .answer-and-controls-section{
+    height: 20px;
+    z-index: 106;
+  }
+
+  .correct-answer-text{
+    z-index: 103;
+  }
+
 
   .correct-answer-text p {
     font-size: 1px;
+    visibility: hidden;
   }
 
   .how-to-play {
