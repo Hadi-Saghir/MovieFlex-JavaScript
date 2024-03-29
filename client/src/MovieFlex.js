@@ -20,7 +20,7 @@ const MovieFlex = ({ code }) => {
 
 
   // const url = "";
-  const url= "https://movieflex-react-server.vercel.app"
+  const url = "https://movieflex-react-server.vercel.app"
 
 
   //----------------------------------------------------
@@ -92,15 +92,15 @@ const MovieFlex = ({ code }) => {
 
   const checkAnswer = (selectedID) => {
     setSelectedMovieID(selectedID);
-    setTimeout(setShowAnswer(true), 100); 
+    setTimeout(setShowAnswer(true), 100);
 
     // Start showing the answer after a short delay to allow for any immediate transitions
     setTimeout(() => {
       setShowAnswer(false);
-        setSelectedMovieID(null); // Reset for the next question
-        fetchNewRound()
-        // Proceed to the next round after a short pause to separate rounds
-        // setTimeout(fetchNewRound, 100); // Adjust as necessary
+      setSelectedMovieID(null); // Reset for the next question
+      fetchNewRound()
+      // Proceed to the next round after a short pause to separate rounds
+      // setTimeout(fetchNewRound, 100); // Adjust as necessary
     }, 2000); // Short delay to kick off transitions
   };
 
@@ -119,26 +119,51 @@ const MovieFlex = ({ code }) => {
     // Check if this is the correct movie
     const isCorrect = movieId === correctMovieID;
 
+    // Determine if we're on a smaller screen
+    // This checks if the screen width is less than or equal to 768 pixels
+    const isSmallScreen = window.innerWidth <= 768 || window.innerHeight <= 1000;
+
     // Apply transformations based on the movie's position (index) and correctness
     let transform = '';
     if (isCorrect) {
       // Correct movie, decide on the transform based on its initial position
-      switch (movieIndex) {
-        case 0: // Top left
-          transform = 'translate(125%, 50%)';
-          break;
-        case 1: // Bottom left
-          transform = 'translate(125%, -50%)';
-          break;
-        case 2: // Top right
-          transform = 'translate(-125%, 50%)';
-          break;
-        case 3: // Bottom right
-          transform = 'translate(-125%, -50%)';
-          break;
-        default:
-          // Fallback for any other position, though unlikely given a 2x2 grid
-          transform = 'translate(0%, 0%)';
+      if (isSmallScreen) {
+        // Adjust transformations for smaller screens
+        switch (movieIndex) {
+          case 0: // Top left
+            transform = 'translate(60%, 50%)';
+            break;
+          case 1: // Bottom left
+            transform = 'translate(60%, -50%)';
+            break;
+          case 2: // Top right
+            transform = 'translate(-60%, 50%)';
+            break;
+          case 3: // Bottom right
+            transform = 'translate(-60%, -50%)';
+            break;
+          default:
+            // Fallback for any other position, though unlikely given a 2x2 grid
+            transform = 'translate(0%, 0%)';
+        }
+      } else {
+        // Adjustments for larger screens
+        switch (movieIndex) {
+          case 0: // Top left
+            transform = 'translate(125%, 50%)';
+            break;
+          case 1: // Bottom left
+            transform = 'translate(125%, -50%)';
+            break;
+          case 2: // Top right
+            transform = 'translate(-125%, 50%)';
+            break;
+          case 3: // Bottom right
+            transform = 'translate(-125%, -50%)';
+            break;
+          default:
+            transform = 'translate(0%, 0%)';
+        }
       }
       return {
         transform: transform,
@@ -147,13 +172,16 @@ const MovieFlex = ({ code }) => {
       };
     } else {
       // Incorrect movie, just scale down
+      // Optionally, adjust scale down transformation for small screens if needed
+      const scaleTransform = isSmallScreen ? 'scale(0.9)' : 'scale(0.8)';
       return {
-        transform: 'scale(0.8)',
+        transform: scaleTransform,
         opacity: 0, // Make incorrect cards semi-transparent
         transition: 'transform 0.2s ease, opacity 0.5s ease',
       };
     }
   };
+
 
 
 
@@ -169,24 +197,25 @@ const MovieFlex = ({ code }) => {
 
   return (
     <div>
-      <Container className="d-flex flex-column py-2" style={{ height: "100vh", width: "100vh", overflow: 'auto' }}>
-        <Row className="w-full md:h-screen flex items-center" style={{ height: '15vh', zIndex: '102' }}>
+      <Container className="d-flex flex-column py-2" style={{ height: "100%", width: "100%", overflow: 'auto' }}>
+        <Row className="w-full md:h-screen flex items-center head-banner" >
           <Col xs={4} className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
             <button className="img-button button-margin" onClick={() => handleRedirect("/")}>
               <img src="https://elasticbeanstalk-eu-north-1-102471047009.s3.eu-north-1.amazonaws.com/movieflex/MovieFlex.png" alt="IMDb Logo" className="mf-logo" style={{ maxWidth: '150px', height: 'auto' }} />
             </button>
           </Col>
         </Row>
-  
-        <Row className="flex-grow-1 my-2" style={{ height: '60vh', overflow: 'hidden', zIndex: '101' }}>
+
+        <Row className="flex-grow-1 my-2 selected-answer-container-row" style={{ overflow: 'auto' }}>
           <div className={`selected-answer-container ${!showAnswer ? 'show' : ''}`}>
             <Col>
-              <div className="card-holder" style={{ overflow: 'hidden' }}>
+              <div className="card-holder" style={{ overflow: 'auto' }}>
                 {movies.map((movie, index) => (
                   <Col xs={6} md={4} lg={3} className="mb-4" key={movie.id}>
                     <div
                       key={movie.id}
                       className={`card flip-card ${selectedMovieID === movie.id ? (movie.id === correctMovieID ? 'correct' : 'incorrect') : ''} ${showAnswer ? 'no-hover-effect' : ''}`}
+                      id="card"
                       onClick={() => !showAnswer && checkAnswer(movie.id)}
                       style={getTransformationStyle(movie.id, index, movies.length)}
                     >
@@ -203,8 +232,9 @@ const MovieFlex = ({ code }) => {
             </Col>
           </div>
         </Row>
-  
-        <Col className="d-flex flex-column py-2" style={{ overflow: 'hidden' }}>
+        <div id="embed-iframe"></div>
+
+        <Col className="d-flex flex-column py-2" style={{ overflow: 'auto' }}>
           <div className="answer-and-controls-section">
             <div className="correct-answer-text">
               {showAnswer && correctMovieDetails ? (
@@ -214,13 +244,14 @@ const MovieFlex = ({ code }) => {
               )}
             </div>
             <div className="controls">
+              {/* <button onClick={togglePlay} className="play-pause-button" id="toggle-play"> Toggle Play</button> */}
               <button onClick={fetchNewRound} className="play-pause-button" > New Round </button>
               <button onClick={quitGame} className="play-pause-button"> Return </button>
             </div>
           </div>
         </Col>
-  
-        <div className="spotify-player-container">
+
+        <div className="spotify-player-container" style={{ overflow: 'hidden' }}>
           <SpotifyPlayer
             token={accessToken}
             uris={trackUri ? [trackUri] : []}
@@ -230,7 +261,7 @@ const MovieFlex = ({ code }) => {
             }}
             styles={{
               bgColor: '#333',
-              
+
               color: '#fff',
               loaderColor: '#fff',
               sliderColor: '#1cb954',
@@ -240,13 +271,14 @@ const MovieFlex = ({ code }) => {
             }}
           />
           <div className="cover-overlay" />
+
         </div>
-  
+
       </Container>
-  
+
     </div>
   );
-  
+
 }
 
 export default MovieFlex;
