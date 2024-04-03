@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom'; // Import Navigate here
 import { Container, Row, Col } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Analytics } from "@vercel/analytics/react"
 
 import MovieFlex from './MovieFlex';
 import MovieFlexFree from './MovieFlexFree';
@@ -45,7 +46,7 @@ function Login() {
 
       <Row className="login-container">
         <Col className="controls">
-          <div style={{width: "60%"}}></div>
+          <div style={{ width: "60%" }}></div>
           <img src="https://elasticbeanstalk-eu-north-1-102471047009.s3.eu-north-1.amazonaws.com/movieflex/Premium-Webplayer-Arrow.png" alt="Premium Webplayer" className="prem-logo" />
         </Col>
         <Col className="controls">
@@ -83,6 +84,7 @@ function App() {
   console.log(code)
   return (
     <Router>
+      <Analytics />
       <Routes>
         <Route path="/" element={!code ? <Login /> : <Navigate to="/movieflex" />} />
         <Route path="/movieflex-free" element={<MovieFlexFree />} />
